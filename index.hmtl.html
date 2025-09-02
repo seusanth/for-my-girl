@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-image 1s ease-in-out, filter 1s ease-in-out;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .background-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: filter 1s ease-in-out;
+            z-index: -1;
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 12px;
+            padding: 1rem 2.5rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .glass-button:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .glass-container {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 800px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: row; /* Alterado para layout horizontal */
+            align-items: center;
+            text-align: left; /* Alinhamento do texto à esquerda */
+        }
+
+        .message-photo {
+            max-width: 50%; /* Limita a largura da foto */
+            height: auto;
+            border-radius: 12px;
+            margin-right: 1.5rem; /* Adiciona margem à direita da foto */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-text {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .music-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <div id="initial-screen" class="flex flex-col items-center justify-center h-screen w-full">
+        <button id="love-button" class="glass-button">
+            Para o meu amor
+        </button>
+    </div>
+
+    <div id="love-message-screen" class="hidden flex-col items-center justify-center h-screen w-full p-4 md:p-8">
+        <div class="glass-container">
+            <img id="main-photo" class="message-photo" src="IMG_20250828_202716.jpg" alt="Foto de um casal sorrindo">
+            <div class="message-text">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Minha Mulher</h1>
+                <p class="text-base md:text-lg leading-relaxed">
+                    Amor, eu sei que não tenho sido o melhor namorado, também não estou sendo um bom amigo, temos nossos momentos de discussão, choro e tristeza. Mas uma coisa que eu aprendi é que o relacionamento depende das duas partes, e se os dois quiserem, assim será. Quero te dizer que eu te amo, estou um pouco longe da posição que queria estar para te proporcionar uma vida estável comigo, mas tenho plena noção de que consigo alcançar as minhas metas, principalmente com você ao meu lado, peço para que tenha um pouco de paciencia comigo, eu sei que sou chato e teimoso, mas eu juro que estou dando o meu melhor, eu penso em você a cada segundo da minha vida, até os minimos detalhes, Te amo muito e quero que você seja minha namorada, esposa, amiga, colega... minha mulher! Assinado: do homem que mais te ama na terra!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- O botão de play/pause -->
+    <div id="music-control" class="music-control hidden">
+        <i id="music-icon" class="fas fa-play text-white"></i>
+    </div>
+
+    <!-- O elemento de áudio oculto -->
+    <audio id="audio-player" src="Travis Scott - TELEKINESIS (Official Audio) ft. SZA, Future.mp3"></audio>
+
+    <div id="background-image-container" class="background-image-container" style="background-image: url('IMG_20250828_202716.jpg');"></div>
+
+    <script>
+        const loveButton = document.getElementById('love-button');
+        const initialScreen = document.getElementById('initial-screen');
+        const loveMessageScreen = document.getElementById('love-message-screen');
+        const backgroundImageContainer = document.getElementById('background-image-container');
+        const audioPlayer = document.getElementById('audio-player');
+        const musicControl = document.getElementById('music-control');
+        const musicIcon = document.getElementById('music-icon');
+
+        loveButton.addEventListener('click', () => {
+            initialScreen.classList.add('hidden');
+            loveMessageScreen.classList.remove('hidden');
+            loveMessageScreen.classList.add('flex');
+            document.body.classList.remove('bg-gray-900');
+            musicControl.classList.remove('hidden');
+
+            // Apply the blur effect to the background image
+            backgroundImageContainer.style.filter = 'blur(10px)';
+            
+            // Play the music automatically
+            audioPlayer.play();
+        });
+
+        musicControl.addEventListener('click', () => {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            } else {
+                audioPlayer.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            }
+        });
+    </script>
+</body>
+</html>
+
