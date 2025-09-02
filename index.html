@@ -108,6 +108,10 @@
 
         /* Regras para telas menores (smartphones) */
         @media (max-width: 768px) {
+            body {
+                overflow-y: auto; /* Permite a rolagem vertical */
+                height: auto;
+            }
             .glass-container {
                 flex-direction: column; /* Altera o layout para coluna em telas menores */
                 text-align: center;
@@ -119,6 +123,11 @@
             }
             .message-text {
                 text-align: center;
+            }
+            #love-message-screen {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+                height: auto;
             }
         }
     </style>
